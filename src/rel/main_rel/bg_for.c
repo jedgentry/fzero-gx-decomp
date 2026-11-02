@@ -1004,6 +1004,108 @@ void fn_1_DD890(Sig_fn_1_DD4DC_DDObj *arg0, f32 arg1) {
 }
 /* fzgx:end fn_1_DD890 */
 
+/* fzgx:begin fn_1_DDF80 noprologue */
+#include "types.h"
+#include "psvec.h"
+
+#pragma section code_type ".fzgxpool"
+__declspec(section ".fzgxpool") static void fzgx_pool_prime1(void) {
+    volatile f32 s; volatile f64 d;  /* fzgx-allow: S2 pool primer sinks */
+    s = -1.0f;
+    s = 0.9999998807907104f;
+    s = 1.0000001192092896f;
+    s = -1.0000001192092896f;
+    s = -0.9999998807907104f;
+}
+static const u32 fzgx_pool_table2[1] = {0x00000000};  /* fzgx-allow: A1 retail pool bytes */
+__declspec(section ".fzgxpool") static void fzgx_pool_keep2(void) { const u32 *volatile cp; cp = fzgx_pool_table2; }  /* fzgx-allow: S2 pool primer sink */
+__declspec(section ".fzgxpool") static void fzgx_pool_prime3(void) {
+    volatile f32 s; volatile f64 d;  /* fzgx-allow: S2 pool primer sinks */
+    d = 1.1920928955078125e-07;
+    s = 0.0f;
+    s = 5.0f;
+    s = 1.0f;
+}
+static const u32 fzgx_pool_table4[1] = {0x00FF00FF};  /* fzgx-allow: A1 retail pool bytes */
+__declspec(section ".fzgxpool") static void fzgx_pool_keep4(void) { const u32 *volatile cp; cp = fzgx_pool_table4; }  /* fzgx-allow: S2 pool primer sink */
+#pragma section code_type ".text"
+
+typedef struct fn_1_DDF80_Vec3 {
+    f32 x;
+    f32 y;
+    f32 z;
+} fn_1_DDF80_Vec3;
+
+extern f32 lbl_8006D534(fn_1_DDF80_Vec3 *a, fn_1_DDF80_Vec3 *b);
+extern f32 lbl_8006D0B4(f32);
+extern void lbl_8006D5F0(fn_1_DDF80_Vec3 *src, fn_1_DDF80_Vec3 *dst, f32 length);
+extern void lbl_8006D668(fn_1_DDF80_Vec3 *);
+extern void fn_80008BA8(void *dst, void *src, u32 size);
+
+static inline void fn_1_DDF80_cross(fn_1_DDF80_Vec3 *a, fn_1_DDF80_Vec3 *b, fn_1_DDF80_Vec3 *out) {
+    f32 ax = a->x;
+    f32 ay = a->y;
+    f32 az = a->z;
+    f32 bx = b->x;
+    f32 by = b->y;
+    f32 bz = b->z;
+    f32 x;
+    f32 y;
+    f32 z;
+    x = ay * bz;
+    y = az * bx;
+    z = ax * by;
+    x -= az * by;
+    y -= ax * bz;
+    z -= ay * bx;
+    out->x = x;
+    out->y = y;
+    out->z = z;
+}
+
+static inline f32 fn_1_DDF80_dot(fn_1_DDF80_Vec3 *a, fn_1_DDF80_Vec3 *b) {
+    f32 r = a->x * b->x;
+    r += a->y * b->y;
+    r += a->z * b->z;
+    return r;
+}
+
+static inline void fn_1_DDF80_negate(fn_1_DDF80_Vec3 *v) {
+    psvec_scale(v, -1.0f, v);
+}
+
+#pragma opt_propagation off
+void fn_1_DDF80(fn_1_DDF80_Vec3 *a, fn_1_DDF80_Vec3 *b, fn_1_DDF80_Vec3 *c, fn_1_DDF80_Vec3 *out, f32 length, f32 scale) {
+    fn_1_DDF80_Vec3 tmp;
+    f32 d;
+    f32 s;
+
+    d = lbl_8006D534(a, b);
+    s = lbl_8006D0B4(1.0f - (f32)(d * d));
+    fn_80008BA8(c, b, sizeof(fn_1_DDF80_Vec3));
+    lbl_8006D5F0(c, c, length * d);
+    fn_80008BA8(&tmp, a, sizeof(fn_1_DDF80_Vec3));
+    fn_1_DDF80_cross(&tmp, b, out);
+    fn_1_DDF80_cross(out, b, out);
+    {
+        f32 x = out->x;
+        f32 y = out->y;
+        f32 z = out->z;
+        f32 len = x * x;
+        len += y * y;
+        len += z * z;
+        if (len > 0.0f) {
+            lbl_8006D668(out);
+        }
+    }
+    if (!(fn_1_DDF80_dot(&tmp, out) > 0.0f)) {
+        fn_1_DDF80_negate(out);
+    }
+    psvec_scale(out, scale * s, out);
+}
+#pragma opt_propagation reset
+/* fzgx:end fn_1_DDF80 */
+
 /* fzgx:begin fn_1_DE180 noprologue */
 #include "types.h"
 #include "psvec.h"
