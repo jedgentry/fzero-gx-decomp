@@ -210,8 +210,11 @@ class Elf:
             return True
         others = [s for s in self.symbols()
                   if s["shndx"] == ro["index"] and (s["info"] & 0xF) == STT_OBJECT and s["name"] not in private_names]
-        # the pool primer's tables (fzgx_pool_table*) are private pool bytes like the `@` literals
-        if any(not s['name'].startswith(('@', 'fzgx_pool_')) for s in others):
+        # the pool primer's tables (fzgx_pool_table*) are private pool bytes like the `@` literals;
+        # so is a function-local static (`name$N`, local binding): no other object can name it,
+        # and the relocation check below proves it is only reached through the retargeted base
+        if any(not (s['name'].startswith(('@', 'fzgx_pool_')) or ('$' in s['name'] and s['info'] >> 4 == 0))
+               for s in others):
             return False
         # MWCC can retain unused initializer objects after optimizing their
         # consumers away. Drop them only when no relocation (including one via
