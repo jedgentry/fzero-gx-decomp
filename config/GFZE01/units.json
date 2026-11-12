@@ -41401,6 +41401,17 @@
   },
   {
     "module": "main",
+    "source": "dol/lbl_8006D5A4.c",
+    "symbols": [
+      "lbl_8006D5A4"
+    ],
+    "status": "matching",
+    "mw_version": "GC/1.3.2",
+    "extra_cflags": [],
+    "pool": {}
+  },
+  {
+    "module": "main",
     "source": "dol/ldexp.c",
     "symbols": [
       "ldexp"
