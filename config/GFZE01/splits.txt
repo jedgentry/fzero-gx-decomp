@@ -2898,7 +2898,7 @@ dol/TRKRestoreExtended1Block.c:
 	.text       start:0x8008CCF8 end:0x8008CEB0 align:4
 
 dol/InitMetroTRK.c:
-	.text       start:0x8008CEB0 end:0x8008CF44 align:4
+	.text       start:0x8008CEB0 end:0x8008CF48 align:4
 
 dol/InitMetroTRK_BBA.c:
 	.text       start:0x8008CF48 end:0x8008CFDC align:4
