@@ -41369,6 +41369,22 @@
   },
   {
     "module": "main",
+    "source": "dol/lbl_8006D3D0.c",
+    "symbols": [
+      "lbl_8006D3D0"
+    ],
+    "status": "matching",
+    "mw_version": "GC/1.3.2",
+    "extra_cflags": [],
+    "pool": {
+      "@13": "lbl_801A73B4+0x4",
+      "@14": "lbl_801A73B4+0xC",
+      "@15": "lbl_801A73B4+0x10",
+      "@16": "lbl_801A73B4+0x14"
+    }
+  },
+  {
+    "module": "main",
     "source": "dol/ldexp.c",
     "symbols": [
       "ldexp"
