@@ -1,5 +1,9 @@
 # 281 — the SDK save/restore register family cannot be asm units: it aliases compiler-generated symbols
 
+> **Correction (2026-11-12).** mwld does not generate `_savefpr_N`/`_savegpr_N`. The "linker
+> generated symbol" warning came from our own `carve.retain_entry_labels` alias in `ldscript.tpl`.
+> The four now link as `asm` functions with `entry` labels (`src/dol/__save_fpr.c` etc.).
+
 Date: 2026-10-04. Tool: `fzgx asm-unit`, `mwldeppc.exe`. Goal context: (b), all 16 targets linked.
 
 ## The population
