@@ -19756,6 +19756,46 @@
   },
   {
     "module": "main",
+    "source": "dol/__restore_fpr.c",
+    "symbols": [
+      "__restore_fpr"
+    ],
+    "status": "matching",
+    "mw_version": "GC/1.2.5n",
+    "extra_cflags": []
+  },
+  {
+    "module": "main",
+    "source": "dol/__restore_gpr.c",
+    "symbols": [
+      "__restore_gpr"
+    ],
+    "status": "matching",
+    "mw_version": "GC/1.2.5n",
+    "extra_cflags": []
+  },
+  {
+    "module": "main",
+    "source": "dol/__save_fpr.c",
+    "symbols": [
+      "__save_fpr"
+    ],
+    "status": "matching",
+    "mw_version": "GC/1.2.5n",
+    "extra_cflags": []
+  },
+  {
+    "module": "main",
+    "source": "dol/__save_gpr.c",
+    "symbols": [
+      "__save_gpr"
+    ],
+    "status": "matching",
+    "mw_version": "GC/1.2.5n",
+    "extra_cflags": []
+  },
+  {
+    "module": "main",
     "source": "dol/__set_debug_bba.c",
     "symbols": [
       "__set_debug_bba"
