@@ -24,7 +24,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 from . import oracle, tufile, verify
-from .carve import carve
+from .carve import carve, source_entry_labels
 from .context import build_context
 from .ledger import Ledger
 from .lint import lint_paths, allocator_scaffolding
@@ -770,7 +770,8 @@ def submit(p: Project, symbol: str, agent: str = "unknown", message: str = "",
     if not reason and not unit_src and not _is_shadow(agent):
         # accepted: now it gets a unit (split range + entry); the batch verify does the one split+relink
         try:
-            cr = carve(p, symbol)
+            # an `asm` function defines its own entry labels; carve must not alias those
+            cr = carve(p, symbol, defined_labels=source_entry_labels(candidate_path.read_text()))
             unit_src = cr.source
             l.db.execute("UPDATE functions SET unit=? WHERE symbol=?", (unit_src, key))
             # a version the oracle chose among the module's candidates is the unit's version

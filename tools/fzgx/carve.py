@@ -12,7 +12,7 @@ import re
 from collections import defaultdict
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, Iterable, List, Optional, Tuple
 
 from . import oracle, tufile
 from .project import ROOT, Function, Project, Symbol
@@ -131,14 +131,32 @@ def globalize_local_function(project: Project, module: str, name: str, res=None)
     return True
 
 
-def retain_entry_labels(project: Project, sym: Symbol) -> List[str]:
-    """A C definition replaces the function, but cannot emit its additional entry labels."""
+_ENTRY_DIRECTIVE = re.compile(r'^[ \t]*entry[ \t]+(?:extern[ \t]+|static[ \t]+)?([A-Za-z_]\w*)', re.M)
+
+
+def source_entry_labels(source: str) -> List[str]:
+    """Entry labels an MWCC `asm` function defines itself, one `entry NAME` directive each."""
+    return _ENTRY_DIRECTIVE.findall(source)
+
+
+def retain_entry_labels(project: Project, sym: Symbol, defined: Iterable[str] = ()) -> List[str]:
+    """A C definition replaces the function, but cannot emit its additional entry labels.
+
+    `defined` names the labels the unit's own object does define: an MWCC `asm` function
+    declares them with `entry NAME`, and an assembly unit carries every label of its range.
+    Those must not be assigned here as well. mwld calls an LCF assignment a "linker generated
+    symbol": given both it warns that the object's symbol "is also defined as a linker
+    generated symbol" and uses the LCF one, which is absolute (`dtk rel make` then panics on
+    a REL's reference to it); on a GNU-as object mwld crashes outright. That is the whole of
+    the __save_fpr/_savefpr_14 failure in docs/findings/281; mwld generates no such symbol
+    itself."""
     template = project.module_config_dir(sym.module) / 'ldscript.tpl'
     if not template.exists():
         return []
+    defined = set(defined)
     labels = [s.name for s in project.symbols(sym.module).values()
               if s.kind == 'label' and s.section == sym.section and s.addr == sym.addr
-              and s.scope == 'global' and s.name.isidentifier()]
+              and s.scope == 'global' and s.name.isidentifier() and s.name not in defined]
     text = template.read_text()
     additions = [name for name in labels if not re.search(r'^\s*' + re.escape(name) + r'\s*=', text, re.M)]
     if additions:
@@ -148,7 +166,8 @@ def retain_entry_labels(project: Project, sym: Symbol) -> List[str]:
     return additions
 
 
-def carve(project: Project, symbol: str, dry_run: bool = False) -> CarveResult:
+def carve(project: Project, symbol: str, dry_run: bool = False,
+          defined_labels: Iterable[str] = ()) -> CarveResult:
     sym = project.resolve(symbol)
     if sym is None or sym.kind != "function":
         raise LookupError(f"{symbol}: not a known (or unambiguous) function symbol; use module:name for _prolog/_epilog")
@@ -259,7 +278,7 @@ def carve(project: Project, symbol: str, dry_run: bool = False) -> CarveResult:
             res.notes.append("force_active: no callers")
 
     globalize_local_function(project, module, sym.name, res)
-    for label in retain_entry_labels(project, sym):
+    for label in retain_entry_labels(project, sym, defined_labels):
         res.notes.append(f'{label}: linker alias of the C function entry')
     if order_labels_after_functions(project.module_config_dir(module) / "symbols.txt"):
         project._symbols.pop(module, None)

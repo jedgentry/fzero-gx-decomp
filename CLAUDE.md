@@ -36,8 +36,10 @@ Each was measured, not assumed. The evidence is in `docs/findings/`.
   whole band, 0 matches (282). Register repair has likewise produced 0 matches from 170
   functions of captured allocator decisions (`docs/REGISTER_REPAIR.md`). The hard tail is a
   source-shape problem; its owner is a model session, not a search.
-- **The SDK save/restore register family cannot be asm units.** `__save_fpr` and friends alias
-  compiler-generated symbols that mwld also defines (281).
+- **The EABI save/restore family (`__save_fpr` and friends) is not compiler- or linker-generated.**
+  mwld's "linker generated symbol" warning in 281 came from our own `carve.retain_entry_labels`
+  alias in `ldscript.tpl`. Carve now leaves an `asm` function's own `entry` labels to the unit;
+  the four link as CodeWarrior `asm` functions with `entry` labels (src/dol/, as in runtime.c).
 - **Raising MAX_STALE** buys tokens, not matches: a 99.5-100% plateau exit converts 18.8% of
   the time even with unlimited further attempts (274).
 - **Do not reallocate providers on the "gpt is 40% cheaper" claim** -- retracted as a
