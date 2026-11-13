@@ -19761,8 +19761,9 @@
       "__restore_fpr"
     ],
     "status": "matching",
-    "mw_version": "GC/1.2.5n",
-    "extra_cflags": []
+    "mw_version": null,
+    "extra_cflags": [],
+    "asm": true
   },
   {
     "module": "main",
@@ -19771,8 +19772,9 @@
       "__restore_gpr"
     ],
     "status": "matching",
-    "mw_version": "GC/1.2.5n",
-    "extra_cflags": []
+    "mw_version": null,
+    "extra_cflags": [],
+    "asm": true
   },
   {
     "module": "main",
@@ -19781,8 +19783,9 @@
       "__save_fpr"
     ],
     "status": "matching",
-    "mw_version": "GC/1.2.5n",
-    "extra_cflags": []
+    "mw_version": null,
+    "extra_cflags": [],
+    "asm": true
   },
   {
     "module": "main",
@@ -19791,8 +19794,9 @@
       "__save_gpr"
     ],
     "status": "matching",
-    "mw_version": "GC/1.2.5n",
-    "extra_cflags": []
+    "mw_version": null,
+    "extra_cflags": [],
+    "asm": true
   },
   {
     "module": "main",

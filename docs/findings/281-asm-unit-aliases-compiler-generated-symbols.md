@@ -2,7 +2,9 @@
 
 > **Correction (2026-11-12).** mwld does not generate `_savefpr_N`/`_savegpr_N`. The "linker
 > generated symbol" warning came from our own `carve.retain_entry_labels` alias in `ldscript.tpl`.
-> The four now link as `asm` functions with `entry` labels (`src/dol/__save_fpr.c` etc.).
+> Re-measured on 0e25c349: the four link as asm units (`src/dol/__save_fpr.s` etc., dtk's split
+> assembly with its `.sym _savefpr_N, global` labels): 16 files OK, 16/16 hashes, no
+> linker-generated-symbol warning. (An earlier landing used `asm` functions with `entry` labels.)
 
 Date: 2026-10-04. Tool: `fzgx asm-unit`, `mwldeppc.exe`. Goal context: (b), all 16 targets linked.
 

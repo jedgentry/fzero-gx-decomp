@@ -43,7 +43,7 @@ Each was measured, not assumed. The evidence is in `docs/findings/`.
   functions of captured allocator decisions (`docs/REGISTER_REPAIR.md`). The hard tail is a
   source-shape problem; its owner is a model session, not a search.
 - **The EABI save/restore family (`__save_fpr` and friends) is not linker-generated** (281,
-  corrected): they link as CodeWarrior `asm` functions with `entry` labels in `src/dol/`.
+  corrected): they are asm units (`src/dol/__save_fpr.s` etc.) defining their own labels.
 - **Raising MAX_STALE** buys tokens, not matches: a 99.5-100% plateau exit converts 18.8% of
   the time even with unlimited further attempts (274).
 - **Do not reallocate providers on the "gpt is 40% cheaper" claim** -- retracted as a
