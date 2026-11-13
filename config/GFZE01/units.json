@@ -36801,17 +36801,6 @@
   },
   {
     "module": "main",
-    "source": "dol/fn_8006E200.c",
-    "symbols": [
-      "fn_8006E200"
-    ],
-    "status": "matching",
-    "mw_version": null,
-    "extra_cflags": [],
-    "asm": true
-  },
-  {
-    "module": "main",
     "source": "dol/fn_8006E250.c",
     "symbols": [
       "fn_8006E250"
@@ -36837,17 +36826,6 @@
     "source": "dol/fn_8006E2B0.c",
     "symbols": [
       "fn_8006E2B0"
-    ],
-    "status": "matching",
-    "mw_version": null,
-    "extra_cflags": [],
-    "asm": true
-  },
-  {
-    "module": "main",
-    "source": "dol/fn_8006E2D8.c",
-    "symbols": [
-      "fn_8006E2D8"
     ],
     "status": "matching",
     "mw_version": null,
@@ -41866,6 +41844,28 @@
     "source": "dol/lbl_8006E13C.c",
     "symbols": [
       "lbl_8006E13C"
+    ],
+    "status": "matching",
+    "mw_version": null,
+    "extra_cflags": [],
+    "asm": true
+  },
+  {
+    "module": "main",
+    "source": "dol/lbl_8006E1B0.c",
+    "symbols": [
+      "lbl_8006E1B0"
+    ],
+    "status": "matching",
+    "mw_version": null,
+    "extra_cflags": [],
+    "asm": true
+  },
+  {
+    "module": "main",
+    "source": "dol/lbl_8006E2C0.c",
+    "symbols": [
+      "lbl_8006E2C0"
     ],
     "status": "matching",
     "mw_version": null,

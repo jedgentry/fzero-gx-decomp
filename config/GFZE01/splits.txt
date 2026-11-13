@@ -5379,9 +5379,6 @@ dol/fn_8008CB30.c:
 dol/fn_8008CB38.c:
 	.text       start:0x8008CB38 end:0x8008CB40 align:4
 
-dol/fn_8006E2D8.c:
-	.text       start:0x8006E2D8 end:0x8006E324 align:4
-
 dol/mathutil_quat_mult.c:
 	.text       start:0x8006E540 end:0x8006E5B4 align:4
 
@@ -5426,9 +5423,6 @@ dol/u_gxutil_upload_some_mtx.c:
 
 dol/fn_80072558.c:
 	.text       start:0x80072558 end:0x800725DC align:4
-
-dol/fn_8006E200.c:
-	.text       start:0x8006E200 end:0x8006E250 align:4
 
 dol/mathutil_mtxA_rotate_x.c:
 	.text       start:0x8006E324 end:0x8006E398 align:4
@@ -7721,3 +7715,9 @@ dol/lbl_8006E0A4.c:
 
 dol/lbl_8006E13C.c:
 	.text       start:0x8006E13C end:0x8006E1B0 align:4
+
+dol/lbl_8006E1B0.c:
+	.text       start:0x8006E1B0 end:0x8006E250 align:4
+
+dol/lbl_8006E2C0.c:
+	.text       start:0x8006E2C0 end:0x8006E324 align:4
