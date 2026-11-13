@@ -39,36 +39,6 @@ def fix_branch_hints(text: str) -> tuple:
     return "\n".join(out) + "\n", n
 
 
-def _compiler_generated_aliases(p: Project, sym) -> List[str]:
-    """Labels at this function's address that mwld generates itself, so we must not define them.
-
-    The SDK's save/restore family is the case: `__save_fpr` and `_savefpr_14` share one address,
-    and every `_savefpr_15..31` label follows. Those names are compiler-generated -- mwld
-    synthesises them for any prologue that saves f14-f31, and the runtime's own C references
-    them. An object that defines them collides with the ones mwld is about to emit:
-
-        ### mwldeppc.exe Linker Warning:
-        #   Symbol '_restfpr_14' defined in '__restore_fpr.o' is also defined as a
-        #   linker generated symbol.
-
-    and the link fails after a full configure+split cycle. See docs/findings/281.
-
-    The ordinary linker-alias case is the opposite requirement: there our C must *keep*
-    retail's label reachable, which is what `carve.retain_entry_labels` does. Here retail's
-    labels must not be defined by us at all, because the linker owns them.
-    """
-    out = []
-    for name in p.symbols(sym.module):
-        if name == sym.name:
-            continue
-        if not re.match(r"^_(save|rest)(gpr|fpr)_", name):
-            continue
-        other = p.symbols(sym.module)[name]
-        if other.addr == sym.addr:
-            out.append(name)
-    return out
-
-
 def _snapshot_file(snapshot: Dict[Path, Optional[bytes]], path: Path) -> None:
     if path not in snapshot:
         snapshot[path] = path.read_bytes() if path.exists() else None
@@ -112,13 +82,6 @@ def make(p: Project, symbols: List[str]) -> Dict[str, object]:
                            if u.get('module') == sym.module and u.get('source') == existing), None)
             if record is None or record.get('status') == 'matching':
                 continue
-        aliases = _compiler_generated_aliases(p, sym)
-        if aliases:
-            # Refuse before carving. Naming the aliases is the useful part: it is the
-            # difference between "did not match" and "cannot be represented".
-            refused.append({"symbol": s, "reason": "address aliases compiler-generated symbols",
-                            "aliases": aliases[:6], "alias_count": len(aliases)})
-            continue
         cfg = p.module_config_dir(sym.module)
         for cfg_name in ("splits.txt", "symbols.txt", "ldscript.tpl"):
             _snapshot_file(snapshot, cfg / cfg_name)
@@ -137,7 +100,10 @@ def make(p: Project, symbols: List[str]) -> Dict[str, object]:
             for cpath in cand_paths:
                 if cpath.exists() and suffixed in cpath.read_text(errors="ignore"):
                     _snapshot_file(snapshot, cpath)
-        cr = carve.carve(p, s)
+        # The split assembly defines every retail label itself (`.sym _savefpr_14, global`), so
+        # carve's ldscript.tpl alias for labels at the entry would define them a second time:
+        # that was the "linker generated symbol" collision of docs/findings/281 (corrected).
+        cr = carve.carve(p, s, entry_aliases=False)
         c_src = ROOT / "src" / cr.source
         s_source = cr.source[:-2] + ".s"
         _snapshot_file(snapshot, c_src)

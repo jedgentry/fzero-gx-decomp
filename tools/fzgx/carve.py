@@ -148,7 +148,7 @@ def retain_entry_labels(project: Project, sym: Symbol) -> List[str]:
     return additions
 
 
-def carve(project: Project, symbol: str, dry_run: bool = False) -> CarveResult:
+def carve(project: Project, symbol: str, dry_run: bool = False, entry_aliases: bool = True) -> CarveResult:
     sym = project.resolve(symbol)
     if sym is None or sym.kind != "function":
         raise LookupError(f"{symbol}: not a known (or unambiguous) function symbol; use module:name for _prolog/_epilog")
@@ -259,7 +259,7 @@ def carve(project: Project, symbol: str, dry_run: bool = False) -> CarveResult:
             res.notes.append("force_active: no callers")
 
     globalize_local_function(project, module, sym.name, res)
-    for label in retain_entry_labels(project, sym):
+    for label in (retain_entry_labels(project, sym) if entry_aliases else []):
         res.notes.append(f'{label}: linker alias of the C function entry')
     if order_labels_after_functions(project.module_config_dir(module) / "symbols.txt"):
         project._symbols.pop(module, None)
