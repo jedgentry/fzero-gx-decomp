@@ -7595,3 +7595,93 @@ dol/lbl_8006D46C.c:
 
 dol/lbl_8006D5A4.c:
 	.text       start:0x8006D5A4 end:0x8006D5F0 align:4
+
+dol/approx_rsqrt.c:
+	.text       start:0x8006D088 end:0x8006D0B4 align:4
+
+dol/lbl_8006D0B4.c:
+	.text       start:0x8006D0B4 end:0x8006D0E8 align:4
+
+dol/lbl_8006D0E8.c:
+	.text       start:0x8006D0E8 end:0x8006D118 align:4
+
+dol/lbl_8006D118.c:
+	.text       start:0x8006D118 end:0x8006D188 align:4
+
+dol/lbl_8006D188.c:
+	.text       start:0x8006D188 end:0x8006D1B8 align:4
+
+dol/lbl_8006D21C.c:
+	.text       start:0x8006D21C end:0x8006D24C align:4
+
+dol/lbl_8006D534.c:
+	.text       start:0x8006D534 end:0x8006D5A4 align:4
+
+dol/lbl_8006D5F0.c:
+	.text       start:0x8006D5F0 end:0x8006D668 align:4
+
+dol/lbl_8006D668.c:
+	.text       start:0x8006D668 end:0x8006D6FC align:4
+
+dol/lbl_8006D6FC.c:
+	.text       start:0x8006D6FC end:0x8006D758 align:4
+
+dol/lbl_8006D758.c:
+	.text       start:0x8006D758 end:0x8006D784 align:4
+
+dol/lbl_8006D784.c:
+	.text       start:0x8006D784 end:0x8006D7B0 align:4
+
+dol/lbl_8006D7B0.c:
+	.text       start:0x8006D7B0 end:0x8006D7DC align:4
+
+dol/lbl_8006D91C.c:
+	.text       start:0x8006D91C end:0x8006D95C align:4
+
+dol/lbl_8006D95C.c:
+	.text       start:0x8006D95C end:0x8006D998 align:4
+
+dol/lbl_8006D998.c:
+	.text       start:0x8006D998 end:0x8006D9D8 align:4
+
+dol/lbl_8006DA50.c:
+	.text       start:0x8006DA50 end:0x8006DAEC align:4
+
+dol/lbl_8006DAEC.c:
+	.text       start:0x8006DAEC end:0x8006DB30 align:4
+
+dol/lbl_8006DB30.c:
+	.text       start:0x8006DB30 end:0x8006DB74 align:4
+
+dol/lbl_8006DB74.c:
+	.text       start:0x8006DB74 end:0x8006DBAC align:4
+
+dol/lbl_8006DBAC.c:
+	.text       start:0x8006DBAC end:0x8006DBE4 align:4
+
+dol/lbl_8006DBE4.c:
+	.text       start:0x8006DBE4 end:0x8006DC20 align:4
+
+dol/lbl_8006DC20.c:
+	.text       start:0x8006DC20 end:0x8006DC34 align:4
+
+dol/lbl_8006DC34.c:
+	.text       start:0x8006DC34 end:0x8006DC6C align:4
+
+dol/lbl_8006DC6C.c:
+	.text       start:0x8006DC6C end:0x8006DCA4 align:4
+
+dol/lbl_8006DCA4.c:
+	.text       start:0x8006DCA4 end:0x8006DCDC align:4
+
+dol/lbl_8006DCDC.c:
+	.text       start:0x8006DCDC end:0x8006DD14 align:4
+
+dol/lbl_8006DD14.c:
+	.text       start:0x8006DD14 end:0x8006DD48 align:4
+
+dol/lbl_8006DD48.c:
+	.text       start:0x8006DD48 end:0x8006DD7C align:4
+
+dol/lbl_8006DF44.c:
+	.text       start:0x8006DF44 end:0x8006DFC4 align:4
