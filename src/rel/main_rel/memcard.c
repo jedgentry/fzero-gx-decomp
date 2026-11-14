@@ -4081,8 +4081,17 @@ typedef struct MemcardObj {
     f32 unk_38;
 } MemcardObj;
 
+typedef struct MemcardSlot {
+    u8 pad_0[0xA0];
+} MemcardSlot;
+
 typedef struct MemcardWork {
-    u8 pad_0[0x1F4];
+    u8 unk_0;
+    u8 pad_1[7];
+    MemcardSlot slot[2];
+    u8 pad_148[0xA9];
+    u8 unk_1F1;
+    u8 pad_1F2[0x2];
     /* polled by the state machine while the async card path writes it */
     volatile u32 unk_1F4;
     u8 unk_1F8;
@@ -4090,7 +4099,8 @@ typedef struct MemcardWork {
     u8 unk_5C08;
     u8 pad_5C09[0x40];
     u8 unk_5C49;
-    u8 pad_5C4A[2];
+    u8 unk_5C4A;
+    u8 pad_5C4B;
     u32 unk_5C4C;
     s32 unk_5C50;
 } MemcardWork;
@@ -4153,7 +4163,7 @@ void fn_1_AECCC(MemcardObj *arg0, u32 unused) {
                 OSPanic((const char *)(str + 0x6CF0), 3575, (const char *)(str + 0x6E04));
                 break;
 
-            case 0:
+            case 1:
                 arg0->unk_24->unk_8 &= ~0x200;
                 if (arg0->unk_24->unk_8 & 0x8000) {
                     arg0->unk_3 = 0x15;
@@ -4206,14 +4216,14 @@ void fn_1_AECCC(MemcardObj *arg0, u32 unused) {
                 work->unk_5C49 = 0;
                 break;
 
-            case 1:
+            case 21:
                 if (arg0->unk_24->unk_8 & 0x8000)
                     arg0->unk_2 = 0xFE;
                 else if ((lbl_1_bss_9F8.unk_8 >> 8) & 1)
                     arg0->unk_2 = 0xFE;
                 break;
 
-            case 2:
+            case 32:
                 arg0->unk_2 = 0xFE;
                 break;
 
@@ -4257,11 +4267,11 @@ void fn_1_AECCC(MemcardObj *arg0, u32 unused) {
                 break;
             }
 
-            case 4:
+            case 38:
                 arg0->unk_3 = 3;
                 break;
 
-            case 5: {
+            case 4: {
                 MemcardCard *card = arg0->unk_24;
                 switch (card->unk_4) {
                 case -5:
@@ -4301,7 +4311,7 @@ void fn_1_AECCC(MemcardObj *arg0, u32 unused) {
                 break;
             }
 
-            case 6:
+            case 5:
                 if (arg0->unk_24->unk_4 == 0)
                     break;
                 if ((arg0->unk_2A & 1) == 0) {
@@ -4328,7 +4338,7 @@ void fn_1_AECCC(MemcardObj *arg0, u32 unused) {
                 }
                 break;
 
-            case 7: {
+            case 6: {
                 MemcardCard *card = arg0->unk_24;
                 switch (card->unk_4) {
                 case -5:
@@ -4350,14 +4360,14 @@ void fn_1_AECCC(MemcardObj *arg0, u32 unused) {
                 break;
             }
 
-            case 8:
+            case 22:
                 if ((lbl_1_bss_9F8.unk_8 >> 8) & 1) {
                     arg0->unk_3 = 0x15;
                     arg0->unk_24->unk_4 = -0x79;
                 }
                 break;
 
-            case 9: {
+            case 7: {
                 MemcardCard *card = arg0->unk_24;
                 switch (card->unk_4) {
                 case -128:
@@ -4377,7 +4387,7 @@ void fn_1_AECCC(MemcardObj *arg0, u32 unused) {
                 break;
             }
 
-            case 0xA: {
+            case 10: {
                 MemcardCard *card = arg0->unk_24;
                 switch (card->unk_4) {
                 case -128:
@@ -4402,7 +4412,7 @@ void fn_1_AECCC(MemcardObj *arg0, u32 unused) {
                 break;
             }
 
-            case 0xB: {
+            case 18: {
                 MemcardCard *card = arg0->unk_24;
                 switch (card->unk_4) {
                 case -5:
@@ -4437,7 +4447,7 @@ void fn_1_AECCC(MemcardObj *arg0, u32 unused) {
                 break;
             }
 
-            case 0xC: {
+            case 31: {
                 MemcardCard *card = arg0->unk_24;
                 switch (card->unk_4) {
                 case -128:
@@ -4466,7 +4476,7 @@ void fn_1_AECCC(MemcardObj *arg0, u32 unused) {
                 break;
             }
 
-            case 0xD: {
+            case 14: {
                 MemcardCard *card = arg0->unk_24;
                 switch (card->unk_4) {
                 case -128:
@@ -4506,7 +4516,7 @@ void fn_1_AECCC(MemcardObj *arg0, u32 unused) {
                 break;
             }
 
-            case 0xE: {
+            case 23: {
                 MemcardCard *card = arg0->unk_24;
                 switch (card->unk_4) {
                 case -128:
@@ -4559,7 +4569,7 @@ void fn_1_AECCC(MemcardObj *arg0, u32 unused) {
                 break;
             }
 
-            case 0xF: {
+            case 8: {
                 MemcardCard *card = arg0->unk_24;
                 switch (card->unk_4) {
                 case -5:
@@ -4583,7 +4593,7 @@ void fn_1_AECCC(MemcardObj *arg0, u32 unused) {
                 break;
             }
 
-            case 0x10: {
+            case 12: {
                 MemcardCard *card = arg0->unk_24;
                 switch (card->unk_4) {
                 case -5:
@@ -4607,7 +4617,7 @@ void fn_1_AECCC(MemcardObj *arg0, u32 unused) {
                 break;
             }
 
-            case 0x11: {
+            case 9: {
                 MemcardCard *card = arg0->unk_24;
                 switch (card->unk_4) {
                 case -128:
@@ -4635,29 +4645,6 @@ void fn_1_AECCC(MemcardObj *arg0, u32 unused) {
                 }
                 break;
             }
-
-            case 18:
-            case 19:
-            case 20:
-            case 21:
-            case 22:
-            case 23:
-            case 24:
-            case 25:
-            case 26:
-            case 27:
-            case 28:
-            case 29:
-            case 30:
-            case 31:
-            case 32:
-            case 33:
-            case 34:
-            case 35:
-            case 36:
-            case 37:
-            case 38:
-                break;
             }
         } else {
             switch (arg0->unk_4) {
@@ -4667,7 +4654,7 @@ void fn_1_AECCC(MemcardObj *arg0, u32 unused) {
                 OSPanic((const char *)(str + 0x6CF0), 4203, (const char *)(str + 0x6E04));
                 break;
 
-            case 0:
+            case 1:
                 arg0->unk_24->unk_8 &= ~0x200;
                 if (arg0->unk_24->unk_8 & 0x8000) {
                     arg0->unk_3 = 2;
@@ -4709,14 +4696,14 @@ void fn_1_AECCC(MemcardObj *arg0, u32 unused) {
                 work->unk_5C49 = 0;
                 break;
 
-            case 1:
+            case 2:
                 if (arg0->unk_24->unk_8 & 0x8000)
                     arg0->unk_2 = 0xFE;
                 else if ((lbl_1_bss_9F8.unk_8 >> 8) & 1)
                     arg0->unk_2 = 0xFE;
                 break;
 
-            case 2: {
+            case 8: {
                 MemcardCard *card = arg0->unk_24;
                 switch (card->unk_4) {
                 case -5:
@@ -4740,7 +4727,7 @@ void fn_1_AECCC(MemcardObj *arg0, u32 unused) {
                 break;
             }
 
-            case 3: {
+            case 9: {
                 MemcardCard *card = arg0->unk_24;
                 switch (card->unk_4) {
                 case -128:
@@ -4793,7 +4780,7 @@ void fn_1_AECCC(MemcardObj *arg0, u32 unused) {
                 break;
             }
 
-            case 4:
+            case 11:
                 if (arg0->unk_24->unk_4 == 0)
                     break;
                 if ((arg0->unk_2A & 1) == 0) {
@@ -4819,7 +4806,7 @@ void fn_1_AECCC(MemcardObj *arg0, u32 unused) {
                 }
                 break;
 
-            case 5: {
+            case 14: {
                 MemcardCard *card = arg0->unk_24;
                 switch (card->unk_4) {
                 case -128:
@@ -4851,7 +4838,7 @@ void fn_1_AECCC(MemcardObj *arg0, u32 unused) {
                 break;
             }
 
-            case 6: {
+            case 36: {
                 MemcardCard *card = arg0->unk_24;
                 switch (card->unk_4) {
                 case -5:
@@ -4881,7 +4868,7 @@ void fn_1_AECCC(MemcardObj *arg0, u32 unused) {
                 break;
             }
 
-            case 7: {
+            case 37: {
                 MemcardCard *card = arg0->unk_24;
                 switch (card->unk_4) {
                 case -5:
@@ -4911,7 +4898,7 @@ void fn_1_AECCC(MemcardObj *arg0, u32 unused) {
                 break;
             }
 
-            case 8: {
+            case 16: {
                 MemcardCard *card = arg0->unk_24;
                 switch (card->unk_4) {
                 case -5:
@@ -4936,7 +4923,7 @@ void fn_1_AECCC(MemcardObj *arg0, u32 unused) {
                 break;
             }
 
-            case 9: {
+            case 19: {
                 MemcardCard *card = arg0->unk_24;
                 switch (card->unk_4) {
                 case -128:
@@ -4956,7 +4943,7 @@ void fn_1_AECCC(MemcardObj *arg0, u32 unused) {
                 break;
             }
 
-            case 10:
+            case 20:
                 if (arg0->unk_24->unk_8 & 4) {
                     if ((arg0->unk_24->unk_8 & 8) == 0) {
                         arg0->unk_28 = 0x2D;
@@ -5009,35 +4996,6 @@ void fn_1_AECCC(MemcardObj *arg0, u32 unused) {
                     work->unk_1F8 = 1;
                 }
                 break;
-
-            case 11:
-            case 12:
-            case 13:
-            case 14:
-            case 15:
-            case 16:
-            case 17:
-            case 18:
-            case 19:
-            case 20:
-            case 21:
-            case 22:
-            case 23:
-            case 24:
-            case 25:
-            case 26:
-            case 27:
-            case 28:
-            case 29:
-            case 30:
-            case 31:
-            case 32:
-            case 33:
-            case 34:
-            case 35:
-            case 36:
-            case 37:
-                break;
             }
         }
 
@@ -5048,7 +5006,9 @@ void fn_1_AECCC(MemcardObj *arg0, u32 unused) {
 #pragma opt_common_subs reset
 /* fzgx:end fn_1_AECCC */
 
-/* fzgx:begin fn_1_B03A8 */
+/* fzgx:begin fn_1_B03A8 noprologue */
+#include "types.h"
+
 void fn_1_B03A8(void *arg0, void *arg1) {
     void *child = *(void **)((u8 *)arg1 + 0x24);
     if ((*(u32 *)((u8 *)child + 0x8) & 0x20) == 0) {
@@ -5059,9 +5019,6 @@ void fn_1_B03A8(void *arg0, void *arg1) {
 /* fzgx:end fn_1_B03A8 */
 
 /* fzgx:begin fn_1_B03CC noprologue */
-#include "types.h"
-
-extern u32 lbl_801A6410;
 extern s32 lbl_801A66B4;
 extern const f32 lbl_1_rodata_4CA8;
 extern s16 lbl_1_bss_962;
@@ -5100,33 +5057,6 @@ typedef struct B03CC_Work {
     u32 unk_E4;
 } B03CC_Work;
 
-typedef struct B03CC_Slot {
-    u8 pad_0[0xA0];
-} B03CC_Slot;
-
-typedef struct B03CC_Globals {
-    u8 unk_0;
-    u8 pad_1[7];
-    B03CC_Slot slot[2];
-    u8 pad_148[0xA9];
-    u8 unk_1F1;
-    u8 pad_1F2[0x2];
-    u32 unk_1F4;
-    u8 unk_1F8;
-    u8 pad_1F9[0x5A0F];
-    u8 unk_5C08;
-    u8 pad_5C09[0x40];
-    u8 unk_5C49;
-    u8 unk_5C4A;
-} B03CC_Globals;
-
-typedef struct B03CC_9F8 {
-    u8 pad_0[8];
-    u16 unk_8;
-} B03CC_9F8;
-
-extern B03CC_Globals lbl_1_bss_716C0;
-extern B03CC_9F8 lbl_1_bss_9F8;
 
 typedef struct B03CC_State {
     u8 unk_0;
@@ -5158,18 +5088,15 @@ typedef struct B03CC_State {
     u8 unk_54[0x20];
 } B03CC_State;
 
-extern s32 CARDUnmount(u8);
 extern void OSReport(const char *, ...);
 extern void OSPanic(const char *, int, const char *, ...);
 extern u32 fn_1_1563E8(u32, u32);
-extern void fn_1_46B4(u32, u32, const char *, int);
-extern void fn_80008BA8(u32, u32, u32);
 
 void fn_1_B03CC(B03CC_State *arg0) {
     B03CC_Work * fzgx_live;
     u8 cmd;
     char *base = (char *)&lbl_1_data_35AC8;
-    B03CC_Globals *g = &lbl_1_bss_716C0;
+    MemcardWork *g = &lbl_1_bss_716C0;
     u8 *slot0;
 
     if (arg0->unk_4 == 0xff) {
@@ -5182,10 +5109,7 @@ void fn_1_B03CC(B03CC_State *arg0) {
         OSPanic(base + 0x6cf0, 0x11f2, base + 0x6e04);
         break;
 
-    case 0:
-    case 1:
-    case 2:
-    case 3: {
+    case 1: {
         arg0->unk_24->unk_8 &= ~0x200;
         if (lbl_1_bss_962 == 100 && arg0->unk_24->unk_0 == 3) {
             arg0->unk_24->unk_8 |= 2;
@@ -5213,7 +5137,7 @@ void fn_1_B03CC(B03CC_State *arg0) {
                         B03CC_Work *wA;
                         while (CARDUnmount(arg0->unk_0) == -1) {
                         }
-                        fn_1_46B4(lbl_801A6410, arg0->unk_C, base + 0x6cf0, 0x121e);
+                        fn_1_46B4(lbl_801A6410, (void *)arg0->unk_C, base + 0x6cf0, 0x121e);
                         arg0->unk_7 = 0;
                         arg0->unk_C = 0;
                         wA = arg0->unk_24;
@@ -5263,7 +5187,7 @@ void fn_1_B03CC(B03CC_State *arg0) {
                 B03CC_Work *wB;
                 while (CARDUnmount(arg0->unk_0) == -1) {
                 }
-                fn_1_46B4(lbl_801A6410, arg0->unk_C, base + 0x6cf0, 0x1251);
+                fn_1_46B4(lbl_801A6410, (void *)arg0->unk_C, base + 0x6cf0, 0x1251);
                 arg0->unk_7 = 0;
                 arg0->unk_C = 0;
                 wB = arg0->unk_24;
@@ -5296,7 +5220,7 @@ void fn_1_B03CC(B03CC_State *arg0) {
         break;
     }
 
-    case 4: {
+    case 21: {
         if (lbl_1_bss_962 == 100 && arg0->unk_24->unk_0 == 3) {
             if (arg0->unk_24->unk_4 == -121) {
                 arg0->unk_2 = 0xfe;
@@ -5315,12 +5239,12 @@ void fn_1_B03CC(B03CC_State *arg0) {
         break;
     }
 
-    case 5: {
+    case 32: {
         arg0->unk_2 = 0xfe;
         break;
     }
 
-    case 6: {
+    case 3: {
         s8 v = arg0->unk_1;
         if (v == -127) {
             arg0->unk_24->unk_4 = v;
@@ -5360,12 +5284,12 @@ void fn_1_B03CC(B03CC_State *arg0) {
         break;
     }
 
-    case 7: {
+    case 38: {
         arg0->unk_3 = 3;
         break;
     }
 
-    case 8: {
+    case 4: {
         B03CC_Work *work = arg0->unk_24;
         switch (work->unk_4) {
         case -5:
@@ -5405,7 +5329,7 @@ void fn_1_B03CC(B03CC_State *arg0) {
         break;
     }
 
-    case 9: {
+    case 5: {
         if (arg0->unk_24->unk_4 != 0) {
             s32 flag;
             if ((arg0->unk_2A & 1) == 0) {
@@ -5435,7 +5359,7 @@ void fn_1_B03CC(B03CC_State *arg0) {
         break;
     }
 
-    case 10: {
+    case 6: {
         B03CC_Work *work = arg0->unk_24;
         switch (work->unk_4) {
         case -5:
@@ -5457,7 +5381,7 @@ void fn_1_B03CC(B03CC_State *arg0) {
         break;
     }
 
-    case 11: {
+    case 22: {
         if (arg0->unk_24->unk_8 & 4) {
             s32 flag;
             if ((arg0->unk_24->unk_8 & 8) == 0) {
@@ -5480,7 +5404,7 @@ void fn_1_B03CC(B03CC_State *arg0) {
         break;
     }
 
-    case 12: {
+    case 7: {
         B03CC_Work *work = arg0->unk_24;
         switch (work->unk_4) {
         case -128:
@@ -5499,7 +5423,7 @@ void fn_1_B03CC(B03CC_State *arg0) {
         break;
     }
 
-    case 13: {
+    case 10: {
         B03CC_Work *work = arg0->unk_24;
         switch (work->unk_4) {
         case -128:
@@ -5523,7 +5447,7 @@ void fn_1_B03CC(B03CC_State *arg0) {
         break;
     }
 
-    case 14: {
+    case 18: {
         B03CC_Work *work = arg0->unk_24;
         switch (work->unk_4) {
         case -5:
@@ -5554,7 +5478,7 @@ void fn_1_B03CC(B03CC_State *arg0) {
         break;
     }
 
-    case 15: {
+    case 31: {
         B03CC_Work *work = arg0->unk_24;
         switch (work->unk_4) {
         case -128:
@@ -5575,7 +5499,7 @@ void fn_1_B03CC(B03CC_State *arg0) {
         break;
     }
 
-    case 16: {
+    case 14: {
         B03CC_Work *work = arg0->unk_24;
         switch (work->unk_4) {
         case -128:
@@ -5602,7 +5526,7 @@ void fn_1_B03CC(B03CC_State *arg0) {
         break;
     }
 
-    case 17: {
+    case 23: {
         switch (arg0->unk_24->unk_4) {
         case -128:
         case -14:
@@ -5640,14 +5564,14 @@ void fn_1_B03CC(B03CC_State *arg0) {
                     }
                 }
                 if (arg0->unk_24->unk_8C->unk_44 == -1) {
-                    fn_80008BA8(arg0->unk_24->unk_90, (u32)(arg0->unk_24->unk_94 + 0x2060), arg0->unk_24->unk_B8);
+                    fn_80008BA8((void *)arg0->unk_24->unk_90, arg0->unk_24->unk_94 + 0x2060, arg0->unk_24->unk_B8);
                     if (arg0->unk_24->unk_0 == 1) {
-                        fn_80008BA8((u32)arg0->unk_54, (u32)(arg0->unk_24->unk_94 + 0x24), 0x20);
+                        fn_80008BA8(arg0->unk_54, arg0->unk_24->unk_94 + 0x24, 0x20);
                     }
                 } else {
-                    fn_80008BA8(arg0->unk_24->unk_90, (u32)(arg0->unk_24->unk_94 + arg0->unk_24->unk_E0), arg0->unk_24->unk_E4);
+                    fn_80008BA8((void *)arg0->unk_24->unk_90, arg0->unk_24->unk_94 + arg0->unk_24->unk_E0, arg0->unk_24->unk_E4);
                     if (arg0->unk_24->unk_0 == 1) {
-                        fn_80008BA8((u32)arg0->unk_54, (u32)(arg0->unk_24->unk_94 + 0x24), 0x20);
+                        fn_80008BA8(arg0->unk_54, arg0->unk_24->unk_94 + 0x24, 0x20);
                     }
                 }
             }
@@ -5663,7 +5587,7 @@ void fn_1_B03CC(B03CC_State *arg0) {
         break;
     }
 
-    case 18: {
+    case 8: {
         B03CC_Work *work = arg0->unk_24;
         switch (work->unk_4) {
         case -5:
@@ -5686,7 +5610,7 @@ void fn_1_B03CC(B03CC_State *arg0) {
         break;
     }
 
-    case 19: {
+    case 12: {
         B03CC_Work *work = arg0->unk_24;
         switch (work->unk_4) {
         case -5:
@@ -5710,9 +5634,7 @@ void fn_1_B03CC(B03CC_State *arg0) {
         break;
     }
 
-    case 20:
-    case 21:
-    case 22: {
+    case 9: {
         switch (arg0->unk_24->unk_4) {
         case -128:
         case -6:
@@ -5733,7 +5655,7 @@ void fn_1_B03CC(B03CC_State *arg0) {
                     B03CC_Work *wC;
                     while (CARDUnmount(arg0->unk_0) == -1) {
                     }
-                    fn_1_46B4(lbl_801A6410, arg0->unk_C, base + 0x6cf0, 0x3c8);
+                    fn_1_46B4(lbl_801A6410, (void *)arg0->unk_C, base + 0x6cf0, 0x3c8);
                     arg0->unk_7 = 0;
                     arg0->unk_C = 0;
                     wC = arg0->unk_24;
@@ -5745,7 +5667,7 @@ void fn_1_B03CC(B03CC_State *arg0) {
                     arg0->unk_40 = arg0->unk_24->unk_14;
                 }
                 if ((arg0->unk_24->unk_8 & 0x20) == 0) {
-                    fn_1_46B4(lbl_801A6410, (u32)arg0->unk_24->unk_94, base + 0x6cf0, 0x3d4);
+                    fn_1_46B4(lbl_801A6410, arg0->unk_24->unk_94, base + 0x6cf0, 0x3d4);
                 }
                 if (arg0->unk_2 == 4) {
                     if (g->unk_0 != 0) {
@@ -5758,11 +5680,11 @@ void fn_1_B03CC(B03CC_State *arg0) {
                         g->unk_0 = 0;
                     }
                     if (arg0->unk_24->unk_DC != 0) {
-                        fn_1_46B4(lbl_801A6410, arg0->unk_24->unk_DC, base + 0x6cf0, 0x3de);
+                        fn_1_46B4(lbl_801A6410, (void *)arg0->unk_24->unk_DC, base + 0x6cf0, 0x3de);
                         arg0->unk_24->unk_DC = 0;
                     }
                 }
-                fn_1_46B4(lbl_801A6410, (u32)arg0->unk_24, base + 0x6cf0, 0x3ec);
+                fn_1_46B4(lbl_801A6410, arg0->unk_24, base + 0x6cf0, 0x3ec);
                 arg0->unk_24 = 0;
                 arg0->unk_2 = 0xff;
                 arg0->unk_3 = 0xff;
@@ -5791,22 +5713,7 @@ void fn_1_B03CC(B03CC_State *arg0) {
         break;
     }
 
-    case 23:
-    case 24:
-    case 25:
-    case 26:
-    case 27:
-    case 28:
-    case 29:
-    case 30:
-    case 31:
-    case 32:
-    case 33:
-    case 34:
-    case 35:
-    case 36:
-    case 37:
-    case 38: {
+    case 24: {
         if (arg0->unk_24->unk_8 & 4) {
             s32 flag;
             if ((arg0->unk_24->unk_8 & 8) == 0) {
@@ -5821,7 +5728,7 @@ void fn_1_B03CC(B03CC_State *arg0) {
             }
             if (flag != 0) {
                 (*(u32 volatile *)&(g->unk_1F4)) /* Retail stores before the call reload. */ = arg0->unk_24->unk_4;
-                fn_1_46B4(lbl_801A6410, (u32)(*(B03CC_Work * volatile *)&(arg0->unk_24)) /* Retail reloads after the store. */, base + 0x6cf0, 0x3ec);
+                fn_1_46B4(lbl_801A6410, (*(B03CC_Work * volatile *)&(arg0->unk_24)) /* Retail reloads after the store. */, base + 0x6cf0, 0x3ec);
                 arg0->unk_24 = 0;
                 arg0->unk_2 = 0xff;
                 arg0->unk_3 = 0xff;
@@ -5840,7 +5747,7 @@ void fn_1_B03CC(B03CC_State *arg0) {
             }
         } else if ((lbl_1_bss_9F8.unk_8 >> 8) & 1) {
             (*(u32 volatile *)&(g->unk_1F4)) /* Retail stores before the call reload. */ = arg0->unk_24->unk_4;
-            fn_1_46B4(lbl_801A6410, (u32)(*(B03CC_Work * volatile *)&(arg0->unk_24)) /* Retail reloads after the store. */, base + 0x6cf0, 0x3ec);
+            fn_1_46B4(lbl_801A6410, (*(B03CC_Work * volatile *)&(arg0->unk_24)) /* Retail reloads after the store. */, base + 0x6cf0, 0x3ec);
             arg0->unk_24 = 0;
             arg0->unk_2 = 0xff;
             arg0->unk_3 = 0xff;
@@ -7419,7 +7326,9 @@ void fn_1_B3900(u8 *arg0) {
 #pragma opt_dead_assignments reset
 /* fzgx:end fn_1_B3900 */
 
-/* fzgx:begin fn_1_B40B4 */
+/* fzgx:begin fn_1_B40B4 noprologue */
+#include "types.h"
+
 void fn_1_B40B4(int unused, void *ptr) {
     *(u8 *)((u8 *)ptr + 3) = 0x3;
 }
