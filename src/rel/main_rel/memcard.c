@@ -2074,8 +2074,6 @@ void fn_1_AD1E4(Fn1AD1E4State *state, Fn1AD1E4Object *object) {
 #include "types.h"
 #include "dolphin/dvd.h"
 
-#pragma opt_propagation off
-
 typedef struct Sig_DVDOpen_DVDFileInfo Sig_DVDOpen_DVDFileInfo;
 typedef void (*Sig_DVDOpen_DVDCallback)(s32 result, Sig_DVDOpen_DVDFileInfo *fileInfo);
 struct Sig_DVDOpen_DVDFileInfo {
@@ -7020,12 +7018,8 @@ extern void OSPanic(const char *file, int line, const char *fmt, ...);
 extern s32 CARDUnmount(s32);
 extern void fn_1_46B4(u32, u32, const char *, int);
 
-#pragma opt_dead_assignments off
 static inline u8 fn_1_B3900_array_read(u8 *array, s32 index) { return array[index]; }
-#pragma opt_dead_assignments reset
 
-#pragma opt_dead_assignments off
-#pragma opt_propagation off
 void fn_1_B3900(u8 *arg0) {
     u8 *data = (u8 *)&lbl_1_data_35AC8;
     u8 *bss = (u8 *)&lbl_1_bss_716C0;
@@ -7321,9 +7315,6 @@ void fn_1_B3900(u8 *arg0) {
         *(u32 *)(bss + 0x1F4) = *(u32 *)(f + 4);
     }
 }
-#pragma opt_propagation reset
-
-#pragma opt_dead_assignments reset
 /* fzgx:end fn_1_B3900 */
 
 /* fzgx:begin fn_1_B40B4 noprologue */
@@ -14872,38 +14863,23 @@ void fn_1_B7F24(void) {
 /* fzgx:end fn_1_B7F24 */
 
 /* fzgx:begin fn_1_B7F58 */
-typedef struct {
-    u32 unk_0;
-    u32 unk_4;
-} Result;
-
-#pragma opt_propagation off
-int fn_1_B7F58(Result *result) {
-    s8 index;
+int fn_1_B7F58(s64 *time) {
+    s8 index = lbl_1_bss_7730A;
     Obj_1_bss_716C8 *entry;
-    u32 value_4;
-    u32 value_0;
-    index = lbl_1_bss_7730A;
+
     if (index == -1) {
-        result->unk_4 = 0;
-        result->unk_0 = 0;
+        *time = 0;
         return 0;
     }
-
     entry = (Obj_1_bss_716C8 *)((u8 *)&lbl_1_bss_716C8 + index * 0xa0);
     if ((s32)entry->unk_50 == 0) {
-        result->unk_4 = 0;
-        result->unk_0 = 0;
+        *time = 0;
         return 0;
     }
-
-    value_4 = entry->unk_48;
-    value_0 = entry->unk_4C;
-    result->unk_4 = value_0;
-    result->unk_0 = value_4;
+    /* unk_48/unk_4C hold one s64 (the generated header splits it into two words) */
+    *time = *(s64 *)&entry->unk_48;
     return 1;
 }
-#pragma opt_propagation reset
 /* fzgx:end fn_1_B7F58 */
 
 /* fzgx:begin fn_1_B7FC8 */
