@@ -87840,9 +87840,6 @@
       "off"
     ],
     "tu": "rel/winning/winning.c",
-    "pool": {
-      "_prolog": "_prolog"
-    },
     "own": [
       "_prolog"
     ]

@@ -756,6 +756,9 @@ void fn_15_3AC(void) {
 /* fzgx:end fn_15_3AC */
 
 /* fzgx:begin fn_15_644 */
+/* WARNING: compiler-diff device, not original code (the `(s32 *)&cursor` casts at both calls: with
+   s32 cursor objects and no cast MWCC propagates the address and keeps the cached loads; only
+   circumstantial evidence says the original had the cast, so it stays marked) */
 /* Moves a menu cursor by dir and wraps it in 0..count-1. The cursors are int objects and the
    parameter is an s32 pointer, so each call has a cast. MWCC does not follow the cast pointer to
    its object: the store ends every cached load (the pad words, lbl_15_bss_38), as retail does. */
@@ -2125,18 +2128,14 @@ void fn_15_3B00(void) {
 /* fzgx:end fn_15_3B00 */
 
 /* fzgx:begin fn_15_3B24 */
-/* WARNING: compiler-diff device, not original code (carried from main: the .fzgxpool literal primer
-   of these two .rodata words, fzgx_pool_prime11 in main). Retail has 9.0f at .rodata 0xFC and 1.04f
-   at 0x100 here, before the literals of fn_15_3B24. No retail code reads 9.0f, and fn_15_4578 reads
-   1.04f again (a deduplicated literal). No function with a retail inlined copy makes these two words.
-   The unit has a one-entry pool map (units.json) only so that the build drops the .fzgxpool section. */
-#pragma section code_type ".fzgxpool"
-__declspec(section ".fzgxpool") static void fzgx_pool_prime_suffix(void) {
-    volatile f32 s;  /* fzgx-allow: S2 pool primer sink */
-    s = 9.0f;
-    s = 1.04f;
+/* Placeholder for a stripped function: an uncalled static function, compiled here and removed by the
+   link (winning/strip_allow.txt). Retail keeps only its two literals, 9.0f at .rodata 0xFC and 1.04f at
+   0x100, before the literals of fn_15_3B24; no retail code reads 9.0f. The body is not known: these
+   calls are the shape that fn_15_4578 uses for its 1.04f text scale. */
+static void winning_suffix_scale(void) {
+    fn_1_49590(9.0f);
+    fn_1_4955C(1.04f, 1.04f);
 }
-#pragma section code_type ".text"
 
 /* WARNING: compiler-diff device, not original code (carried from main: opt_propagation off) */
 #pragma opt_propagation off
