@@ -83768,9 +83768,7 @@
     "matching_for": ["GFZE01"],
     "mw_version": "GC/1.3.2",
     "extra_cflags": [
-      "-fp_contract off",
-      "-opt",
-      "nocse"
+      "-fp_contract off"
     ],
     "tu": "rel/option/name_entry.c"
   },
