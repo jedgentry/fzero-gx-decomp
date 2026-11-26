@@ -219,8 +219,6 @@ u8 lbl_13_bss_54[10];
    Without it the racer index idx becomes a compiler temporary and takes r31. */
 #pragma opt_dead_assignments off
 void fn_13_0(void) {
-    /* WARNING: compiler-diff device, not original code: fzgx_value holds the machine id for one store */
-    u8 fzgx_value;
     u8 idx;
     u32 count;
     u32 i;
@@ -231,8 +229,6 @@ void fn_13_0(void) {
     u8 ver;
     int k;
     u32 j;
-    /* WARNING: compiler-diff device, not original code: one-field carrier of the ghost byte */
-    struct { u8 value; } b;
     u8 locC[4];
     u8 loc8[4];
     ReplayRacer *e;
@@ -269,16 +265,14 @@ void fn_13_0(void) {
             loc8[idx] = lbl_1_bss_26B80[i].unk_2;
             if ((u8)fn_1_F453C(lbl_13_bss_0, &lbl_13_bss_4, 1) != 0) {
                 for (j = 0; j < 0x81C0; j++) {
-                    b.value = fn_1_F453C(lbl_13_bss_0, &lbl_13_bss_4, 8);
-                    ((u8 *)&fn_1_36AD0()[i])[j] = b.value;
+                    ((u8 *)&fn_1_36AD0()[i])[j] = fn_1_F453C(lbl_13_bss_0, &lbl_13_bss_4, 8);
                 }
                 src = fn_1_36AD0()[i].unk_4;
                 fn_80008BA8(&lbl_13_bss_8[idx], src, 0xC);
                 fn_1_12F10C(fn_1_36AD0());
             } else {
+                lbl_13_bss_8[idx].unk_1 = lbl_1_bss_26B80[i].unk_1;
                 e = &lbl_13_bss_8[idx];
-                fzgx_value = lbl_1_bss_26B80[i].unk_1;
-                e->unk_1 = fzgx_value;
                 e->unk_2 = 1 << lbl_1_bss_26B80[i].unk_2;
                 e->unk_B = lbl_1_bss_26B80[i].unk_3;
                 e->unk_4 = 0;
