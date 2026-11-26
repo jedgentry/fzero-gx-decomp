@@ -1829,15 +1829,12 @@ void fn_14_315C(u32 arg0) {
 /* fzgx:end fn_14_315C */
 
 /* fzgx:begin fn_14_316C */
-/* WARNING: compiler-diff device, not original code (opt_common_subs off: retail register order of the entry pointer) */
-#pragma opt_common_subs off
 void fn_14_316C(s16 *arg0, s16 *arg1, s16 *arg2) {
     s16 v8;
     s16 v5;
-    s16 t;
     u32 flags;
     s16 i;
-    s32 v1;
+    s16 v1;
     s16 v0;
 
     v1 = 0;
@@ -1851,9 +1848,8 @@ void fn_14_316C(s16 *arg0, s16 *arg1, s16 *arg2) {
         flags = lbl_14_bss_110.unk_8[i].unk_4;
         if ((flags & 0x8) != 0) {
             if ((flags & 0x40) != 0 || i == v0) {
-                t = v1;
-                v8 = t / lbl_14_bss_160;
-                v5 = t % lbl_14_bss_160 + 1;
+                v8 = v1 / lbl_14_bss_160;
+                v5 = v1 % lbl_14_bss_160 + 1;
                 switch (v8) {
                 case 0:
                     *arg0 = v5;
@@ -1871,7 +1867,6 @@ void fn_14_316C(s16 *arg0, s16 *arg1, s16 *arg2) {
         i++;
     }
 }
-#pragma opt_common_subs reset
 /* fzgx:end fn_14_316C */
 
 /* fzgx:begin fn_14_3230 */
@@ -2262,15 +2257,9 @@ s32 fn_14_4008(void) {
     f32 scale;
     s32 sel0;
     s32 sel1;
-    /* WARNING: compiler-diff device, not original code (one-member carriers: retail copies the loop index from the zero count) */
-    struct { s16 value; } selected;
-    struct { s16 value; } i;
-    struct { s16 value; } count;
     s16 a;
     s16 b;
     s16 c;
-    s16 q;
-    s16 r;
 
     fn_80008BEC(&lbl_14_bss_92C4.unk_4, 0, sizeof(PPVec));
     fn_80008BEC(&lbl_14_bss_92C4.unk_10, 0, sizeof(PPVec));
@@ -2301,31 +2290,7 @@ s32 fn_14_4008(void) {
 
     sel0 = 0;
     sel1 = 0;
-    selected.value = lbl_14_bss_110.unk_4;
-    count.value = 0;
-    c = 0;
-    b = 0;
-    a = 0;
-    for (i.value = count.value; i.value < sizeof(lbl_14_bss_110.unk_8) / sizeof(lbl_14_bss_110.unk_8[0]); i.value++) {
-        if (lbl_14_bss_110.unk_8[i.value].unk_4 & 8) {
-            if ((lbl_14_bss_110.unk_8[i.value].unk_4 & 0x40) || i.value == selected.value) {
-                q = count.value / lbl_14_bss_160;
-                r = count.value % lbl_14_bss_160 + 1;
-                switch (q) {
-                case 0:
-                    a = r;
-                    break;
-                case 1:
-                    b = r;
-                    break;
-                case 2:
-                    c = r;
-                    break;
-                }
-            }
-            count.value++;
-        }
-    }
+    fn_14_316C(&a, &b, &c);
 
     if (lbl_14_bss_8340[a].part[0].id == fn_1_14F270(fn_1_128B00(0), 0, 0x80000000)) {
         fn_1_151BDC(fn_1_36AD0() + fn_14_DC2C() * sizeof(fn_14_2590_Record));
@@ -5053,9 +5018,7 @@ void fn_14_C850(fn_14_1090_Score *score, f32 t) {
 /* fzgx:end fn_14_C850 */
 
 /* fzgx:begin fn_14_CC70 */
-/* WARNING: compiler-diff device, not original code (opt_propagation off, carried from main) */
-#pragma push
-#pragma opt_propagation off
+
 void fn_14_CC70(s32 frame) {
     FontDrawPacket pkt;
     f32 t;
@@ -5167,10 +5130,9 @@ void fn_14_CC70(s32 frame) {
         }
         fn_1_4F734(&pkt);
     } else {
-        t = (f32)frame / 18.0;
+        pkt.alpha = (f32)frame / 18.0;
         pkt.x = 320.0f;
         pkt.y = 224.0f;
-        pkt.alpha = t;
         pkt.alpha = pkt.alpha * pkt.alpha;
         fn_1_50164(&pkt, 300.0f * pkt.alpha, 160.0f * pkt.alpha, 8.0f, 8.0f);
     }
@@ -5178,7 +5140,6 @@ void fn_14_CC70(s32 frame) {
 /* fzgx:end fn_14_CC70 */
 
 /* fzgx:begin fn_14_D2EC */
-#pragma pop
 
 void fn_14_D2EC(s32 frame) {
     FontDrawPacket pkt;
